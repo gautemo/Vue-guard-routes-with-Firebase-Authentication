@@ -1,32 +1,90 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <main>
+    <nav>
+      <router-link to="/signin"><span class="big">Signin</span> (availible for all)</router-link>
+      <router-link to="/profile"><span class="big">Profile</span> (redirects you if not authenticated)</router-link>
+    </nav>
     <router-view/>
-  </div>
+    <footer>
+      <p class="me">
+        <span class="createdby">Created by: Gaute Meek Olsen</span>
+        <Twitter />    
+        <GitHub />
+        <Portofolio size="20" />
+      </p>
+    </footer>
+  </main>
 </template>
 
+<script>
+export default {
+  components: {
+    Twitter: () => import('./components/Twitter'),
+    GitHub: () => import('./components/GitHub'),
+    Portofolio: () => import('./components/Homepage')
+  }
+}
+</script>
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+body, html{
+  margin: 0;
+  height: 100%;
 }
 
-#nav {
-  padding: 30px;
+main{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-#nav a {
+section{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, button{
+  margin-inline-end: auto;
+  margin-inline-start: auto;
+}
+
+nav{
+  display: flex;
+  justify-content: center;
+  background: teal;
+  border-bottom: 1px solid teal;
+}
+
+.big{
+  font-size: 2em;
+  text-transform: uppercase;
   font-weight: bold;
-  color: #2c3e50;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+a{
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+  border-bottom: 5px solid transparent;
 }
+
+nav a:hover{
+  border-bottom: 5px solid orangered;
+}
+
+nav a:hover .big{
+  color: orangered;
+}
+
+.router-link-exact-active{
+  border-bottom: 5px solid white;
+}
+
+footer{
+  background: teal;
+  padding: 15px;
+  color: white;
+}
+
 </style>
