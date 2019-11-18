@@ -10,6 +10,44 @@ I have written a blog with explenation
 ## Demo
 Hosted at [vue-routes-authentication.web.app](https://vue-routes-authentication.web.app)
 
+## Summary
+```
+firebase.getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+            unsubscribe();
+            resolve(user);
+        }, reject);
+    })
+};
+```
+```
+const routes = [
+  {
+    path: '/signin',
+    name: 'signin',
+    component: () => import('../views/SignIn.vue')
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../views/Profile.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  }
+]
+
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  if (requiresAuth && !await firebase.getCurrentUser()){
+    next('signin');
+  }else{
+    next();
+  }
+});
+```
+
 ## Dev
 
 ### Serve
