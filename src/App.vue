@@ -16,18 +16,14 @@
   </main>
 </template>
 
-<script>
-export default {
-  components: {
-    Twitter: () => import('./components/Twitter'),
-    GitHub: () => import('./components/GitHub'),
-    Portofolio: () => import('./components/Homepage')
-  }
-}
+<script setup>
+import Twitter from './components/Twitter.vue'
+import GitHub from './components/GitHub.vue'
+import Portofolio from './components/Homepage.vue'
 </script>
 
 <style>
-body, html{
+body, html, #app {
   margin: 0;
   height: 100%;
 }

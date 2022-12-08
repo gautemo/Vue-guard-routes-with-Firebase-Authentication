@@ -32,12 +32,6 @@
   </a>
 </template>
 
-<script>
-export default {
-  name: 'Github'
-}
-</script>
-
 <style scoped>
 .github:hover svg{
   width: 26px;

@@ -7,24 +7,15 @@
   </section>
 </template>
 
-<script>
-import firebase from "@/firebaseinit";
+<script setup>
+import { logout, auth } from "../firebase";
+import { router } from "../router";
 
-export default {
-  created(){
-    this.name = firebase.auth().currentUser.displayName;
-  },
-  data(){
-    return{
-      name: ''
-    }
-  },
-  methods: {
-    signOut(){
-      firebase.auth().signOut();
-      this.$router.push('/');
-    }
-  }
+const name = auth.currentUser.displayName
+
+async function signOut() {
+  await logout()
+  router.push('/')
 }
 </script>
 

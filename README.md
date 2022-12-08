@@ -1,7 +1,9 @@
 # Vue-guard-routes-with-Firebase-Authentication
+
 Demonstration on how to guard paths in a Vue project with Vue Router and Firebase Authentication
 
 ## Article
+
 I have written a blog with explenation
 
 [gaute.dev](https://gaute.dev/dev-blog/vue-router-firebase-auth)
@@ -14,47 +16,47 @@ I have written a blog with explenation
 Hosted at [vue-routes-authentication.web.app](https://vue-routes-authentication.web.app)
 
 ## Summary
+```js
+export function getCurrentUser() {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe()
+      resolve(user)
+    }, reject)
+  })
+}
 ```
-firebase.getCurrentUser = () => {
-    return new Promise((resolve, reject) => {
-        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-            unsubscribe();
-            resolve(user);
-        }, reject);
-    })
-};
-```
-```
+```js
 const routes = [
   {
+    path: '/',
+    redirect: '/signin'
+  },
+  {
     path: '/signin',
-    name: 'signin',
-    component: () => import('../views/SignIn.vue')
+    component: SignIn
   },
   {
     path: '/profile',
-    name: 'profile',
-    component: () => import('../views/Profile.vue'),
+    component: Profile,
     meta: {
       requiresAuth: true
     }
   }
 ]
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  if (requiresAuth && !await firebase.getCurrentUser()){
-    next('signin');
-  }else{
-    next();
-  }
-});
+  if (requiresAuth && !await getCurrentUser()) {
+    return '/signin';
+  } 
+})
 ```
 
 ## Dev
 
 ### Serve
-`npm run serve`
+`npm run dev`
 
 ### Deploy to Firebase hosting
 `npm run deploy`

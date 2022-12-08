@@ -17,7 +17,6 @@
 
 <script>
 export default {
-  name: "Homepage",
   props: {
     size: String
   }

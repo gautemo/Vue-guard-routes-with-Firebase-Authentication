@@ -23,12 +23,6 @@
   </a>
 </template>
 
-<script>
-export default {
-  name: 'Twitter'
-}
-</script>
-
 <style scoped>
 .twitter:hover svg{
   width: 26px;
